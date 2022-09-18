@@ -1,18 +1,17 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String[] products = {"Молоко", "Хлеб", "Яблоки", "Сыр"}; //ассортимент
-        int[] prices = {100, 75, 110, 800}; //цена товаров из ассортимента
-        Basket basket = new Basket(products, prices);
+        String[] products = {"Молоко", "Хлеб", "Яблоки", "Сыр"}; // массив товаров (ассортимента)
+        double[] prices = {100.50, 75, 110, 800}; // массив цен
+        Basket basket = new Basket();
         Scanner scan = new Scanner(System.in);
 
-        //создаем файл для записи туда сведений о корзине
+        //создаем файл для записи/получения сведений о корзине
         File file = new File("file.txt");
         try {
             if (file.createNewFile() || file.length() == 0L) {
@@ -23,7 +22,6 @@ public class Main {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-
 
 
         basket.printListOfProducts();
@@ -61,9 +59,8 @@ public class Main {
             basket.saveTxt(file);
 
         }
+        scan.close();
 
 
-
-;
     }
 }
