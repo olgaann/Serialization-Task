@@ -53,31 +53,37 @@ public class Basket {
         }
     }
 
-    public void saveTxt(File textFile) { //метод сохранения корзины в текстовый файл
+    public void saveTxt(File textFile) throws FileNotFoundException { //метод сохранения корзины в текстовый файл
+        PrintWriter writer = new PrintWriter(textFile);
 
-        try (PrintWriter writer = new PrintWriter(textFile)) {
-            for (String product : products) {
-                writer.print(product);
-                writer.append("*");
-            }
-            writer.append("\n");
-
-            for (double p : prices) {
-                writer.print(p);
-                writer.append("*");
-            }
-            writer.append("\n");
-
-            for (int b : bin) {
-                writer.print(b);
-                writer.append("*");
-            }
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        Double[] pricesDouble = new Double[prices.length];
+        int i = 0;
+        for (double value : prices) {
+            pricesDouble[i++] = Double.valueOf(value);
         }
+
+        Integer[] binInteger = new Integer[bin.length];
+        i = 0;
+        for (int value : bin) {
+            binInteger[i++] = Integer.valueOf(value);
+        }
+
+        subSaveTxt(products, textFile, writer);
+        subSaveTxt(pricesDouble, textFile, writer);
+        subSaveTxt(binInteger, textFile, writer);
+        writer.close();
+
     }
 
+    public <T> void  subSaveTxt(T[] arr, File textFile, PrintWriter writer) throws FileNotFoundException { //доп.дженерик-метод, чтобы избежать копирования в методе saveTxt
+
+        for (T elem : arr) {
+            writer.print(elem);
+            writer.append("*");
+        }
+        writer.append("\n");
+
+    }
 
     static Basket loadFromTxtFile(File textFile) {
 

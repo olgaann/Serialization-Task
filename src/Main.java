@@ -1,13 +1,14 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         String[] products = {"Молоко", "Хлеб", "Яблоки", "Сыр"}; // массив товаров (ассортимента)
-        double[] prices = {100.50, 75, 110, 800}; // массив цен
+        double[] prices = {100.50, 75.00, 110.00, 800.00}; // массив цен
         Basket basket = new Basket();
         Scanner scan = new Scanner(System.in);
 
