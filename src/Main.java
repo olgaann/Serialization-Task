@@ -4,22 +4,23 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String[] products = {"Молоко", "Хлеб", "Яблоки", "Сыр"}; // массив товаров (ассортимента)
-        double[] prices = {100.50, 75, 110, 800}; // массив цен
+        double[] prices = {45.90, 75, 90, 700}; // массив цен
         Basket basket = new Basket();
         Scanner scan = new Scanner(System.in);
 
         //создаем файл для записи/получения сведений о корзине
-        File file = new File("file.txt");
+        File file = new File("basket.bin");
         try {
             if (file.createNewFile() || file.length() == 0L) {
                 basket = new Basket(products, prices);
             } else {
-                basket = Basket.loadFromTxtFile(file);
+                basket = Basket.loadFromBinFile(file);
+                basket.setPrices(prices); //на случай, если изменятся цены, пока покупатель не оформил покупку
             }
-        } catch (IOException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -56,11 +57,10 @@ public class Main {
                 continue;
             }
             basket.addToCart(productNumber, amount);
-            basket.saveTxt(file);
+            basket.saveBin(file);
 
         }
         scan.close();
-
 
     }
 }
