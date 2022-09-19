@@ -75,7 +75,7 @@ public class Basket {
 
     }
 
-    public <T> void  subSaveTxt(T[] arr, File textFile, PrintWriter writer) throws FileNotFoundException { //доп.дженерик-метод, чтобы избежать копирования в методе saveTxt
+    public <T> void subSaveTxt(T[] arr, File textFile, PrintWriter writer) throws FileNotFoundException { //доп.дженерик-метод, чтобы избежать копирования в методе saveTxt
 
         for (T elem : arr) {
             writer.print(elem);
